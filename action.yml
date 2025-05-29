@@ -23,9 +23,9 @@ runs:
   using: 'composite'
   steps:
     - name: Run deployment script
-      shell: pwsh
+      shell: powershell
       run: |
-        ./deploy.ps1 `
+        ${{ github.action_path }}/deploy.ps1 `
           -Server "${{ inputs.server }}" `
           -Username "${{ inputs.username }}" `
           -Password "${{ inputs.user_password }}" `
