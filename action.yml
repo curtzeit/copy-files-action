@@ -1,0 +1,34 @@
+name: 'Deploy to Windows Server'
+description: 'Copies files to a remote Windows server and deploys them'
+inputs:
+  server:
+    required: true
+    description: 'Target Windows server'
+  username:
+    required: true
+    description: 'Username for remote session'
+  user_password:
+    required: true
+    description: 'Password for remote session'
+  project_name:
+    required: true
+    description: 'Name of the project (used in filenames and folders)'
+  target_path:
+    required: true
+    description: 'Target deployment path on the remote server'
+  staging_path:
+    required: true
+    description: 'Staging path on the remote server'
+runs:
+  using: 'composite'
+  steps:
+    - name: Run deployment script
+      shell: pwsh
+      run: |
+        ./deploy.ps1 `
+          -Server "${{ inputs.server }}" `
+          -Username "${{ inputs.username }}" `
+          -Password "${{ inputs.user_password }}" `
+          -ProjectName "${{ inputs.project_name }}" `
+          -TargetPath "${{ inputs.target_path }}" `
+          -StagingPath "${{ inputs.staging_path }}"
