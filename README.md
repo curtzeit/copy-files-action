@@ -4,8 +4,14 @@ A GitHub Action that securely copies deployment artifacts to a remote Windows se
 
 ## Example Usage
 
+Make sure to zip the project into a Project_Name.zip folder first so the action can find the build artifacts
 
 ```yaml
+
+      - name: Zip Build Artifacts
+        id: zip
+        run: Compress-Archive -Path .\bin\* -DestinationPath .\WMS_Notifier_Service.zip
+
       - name: Deploy to Windows Server
         uses: curtzeit/copy-files-action@v1
         with:
