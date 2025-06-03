@@ -19,6 +19,9 @@ inputs:
   staging_path:
     required: true
     description: 'Staging path on the remote server'
+  backup_path:
+    required: false
+    description: 'Path to backup previous version to before updating'
 runs:
   using: 'composite'
   steps:
@@ -31,4 +34,5 @@ runs:
           -Password "${{ inputs.user_password }}" `
           -ProjectName "${{ inputs.project_name }}" `
           -TargetPath "${{ inputs.target_path }}" `
-          -StagingPath "${{ inputs.staging_path }}"
+          -StagingPath "${{ inputs.staging_path }}
+          -BackupPath "${{ inputs.backup_path }}"

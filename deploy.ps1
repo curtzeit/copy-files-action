@@ -38,9 +38,10 @@ Invoke-Command -Session $session -ScriptBlock {
     # Remove all files from current prod location
     Get-ChildItem -Path $targetPath -Recurse -Force | Remove-Item -Recurse -Force
 
+    # Remove old staging zip if exists   
+    Remove-Item -Path $remoteZip -Force -ErrorAction SilentlyContinue
+
     # Extract all files from new deployment zip to production folder
     Expand-Archive -Path $remoteZip -DestinationPath $targetPath -Force
 
-    # Remove new production zip file that has now been deployed
-    Remove-Item -Path $remoteZip -Force
 } -ArgumentList $remoteZip, $backupZip, $TargetPath
