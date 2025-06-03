@@ -4,8 +4,16 @@ param (
     [string]$Password,
     [string]$ProjectName,
     [string]$TargetPath,
-    [string]$StagingPath
+    [string]$StagingPath,
+    [string]$BackupPath
 )
+
+
+# Use StagingPath as BackupPath if BackupPath is null or empty
+if (-not $BackupPath) {
+    $BackupPath = $StagingPath
+}
+
 
 $so = New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck
 $securePassword = ConvertTo-SecureString $Password -AsPlainText -Force
@@ -14,7 +22,7 @@ $session = New-PSSession -ComputerName $Server -SessionOption $so -UseSSL -Crede
 
 $zipFile = "$ProjectName.zip"
 $remoteZip = Join-Path $StagingPath $zipFile
-$backupZip = Join-Path $StagingPath "$ProjectName.Backup.zip"
+$backupZip = Join-Path $BackupPath "$ProjectName.Backup.zip"
 
 Copy-Item -Path ".\$zipFile" -Destination $remoteZip -ToSession $session
 

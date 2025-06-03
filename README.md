@@ -21,4 +21,5 @@ Make sure to zip the project into a Project_Name.zip folder first so the action 
           project_name: WMS_Notifier_Service
           target_path: 'C:\WMS_Services\WMS_Notifier_Service'
           staging_path: 'C:\WMSServiceDeployments'
+          backup_path: 'C:\WMSServiceDeployments' (optional, otherwise will backup into staging_path)
 ```
