@@ -24,6 +24,13 @@ $zipFile = "$ProjectName.zip"
 $remoteZip = Join-Path $StagingPath $zipFile
 $backupZip = Join-Path $BackupPath "$ProjectName.Backup.zip"
 
+# Remove existing prod deployment zip in staging folder
+Invoke-Command -Session $session -ScriptBlock {
+    param($remoteZip)
+    Remove-Item -Path $remoteZip -Force -ErrorAction SilentlyContinue
+} -ArgumentList $remoteZip
+
+# Copy the new file to the remote session
 Copy-Item -Path ".\$zipFile" -Destination $remoteZip -ToSession $session
 
 Invoke-Command -Session $session -ScriptBlock {
@@ -37,9 +44,6 @@ Invoke-Command -Session $session -ScriptBlock {
 
     # Remove all files from current prod location
     Get-ChildItem -Path $targetPath -Recurse -Force | Remove-Item -Recurse -Force
-
-    # Remove old staging zip if exists   
-    Remove-Item -Path $remoteZip -Force -ErrorAction SilentlyContinue
 
     # Extract all files from new deployment zip to production folder
     Expand-Archive -Path $remoteZip -DestinationPath $targetPath -Force
