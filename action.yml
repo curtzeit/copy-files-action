@@ -29,11 +29,19 @@ runs:
     - name: Run deployment script
       shell: powershell
       run: |
-        PowerShell -ExecutionPolicy Bypass -File "${{ github.action_path }}/deploy.ps1" `
-          -Server "${{ inputs.server }}" `
-          -Username "${{ inputs.username }}" `
-          -Password "${{ inputs.user_password }}" `
-          -ProjectName "${{ inputs.project_name }}" `
-          -TargetPath "${{ inputs.target_path }}" `
-          -StagingPath "${{ inputs.staging_path }}" `
-          -BackupPath "${{ inputs.backup_path }}"
+        $params = @{
+            Server      = "${{ inputs.server }}"
+            Username    = "${{ inputs.username }}"
+            Password    = "${{ inputs.user_password }}"
+            ProjectName = "${{ inputs.project_name }}"
+            TargetPath  = "${{ inputs.target_path }}"
+            StagingPath = "${{ inputs.staging_path }}"
+        }
+
+        # 2. Only add BackupPath if the GitHub input isn't empty
+        if ("${{ inputs.backup_path }}") {
+            $params["BackupPath"] = "${{ inputs.backup_path }}"
+        }
+
+        # 3. Execute using the @ symbol instead of $ to splat the arguments
+        PowerShell -ExecutionPolicy Bypass -File "${{ github.action_path }}/deploy.ps1" @params
