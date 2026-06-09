@@ -28,7 +28,7 @@ runs:
     - name: Run deployment script
       shell: powershell
       run: |
-        ${{ github.action_path }}/deploy.ps1 `
+        PowerShell -ExecutionPolicy Bypass -File "${{ github.action_path }}/deploy.ps1" `
           -Server "${{ inputs.server }}" `
           -Username "${{ inputs.username }}" `
           -Password "${{ inputs.user_password }}" `
