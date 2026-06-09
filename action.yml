@@ -38,10 +38,10 @@ runs:
             StagingPath = "${{ inputs.staging_path }}"
         }
 
-        # 2. Only add BackupPath if the GitHub input isn't empty
+        # Only add BackupPath if the GitHub input isn't empty
         if ("${{ inputs.backup_path }}") {
             $params["BackupPath"] = "${{ inputs.backup_path }}"
         }
 
-        # 3. Execute using the @ symbol instead of $ to splat the arguments
+        # Execute using the @ symbol instead of $ to splat the arguments
         PowerShell -ExecutionPolicy Bypass -File "${{ github.action_path }}/deploy.ps1" @params
