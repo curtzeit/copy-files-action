@@ -5,12 +5,12 @@ param (
     [string]$ProjectName,
     [string]$TargetPath,
     [string]$StagingPath,
-    [string]$BackupPath
+    [string]$BackupPath = $null
 )
 
 
 # Use StagingPath as BackupPath if BackupPath is null or empty
-if (-not $BackupPath) {
+if (-not [string]::IsNullOrEmpty($BackupPath)) {
     $BackupPath = $StagingPath
 }
 
