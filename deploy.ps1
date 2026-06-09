@@ -10,7 +10,7 @@ param (
 
 
 # Use StagingPath as BackupPath if BackupPath is null or empty
-if (-not [string]::IsNullOrEmpty($BackupPath)) {
+if ([string]::IsNullOrEmpty($BackupPath)) {
     $BackupPath = $StagingPath
 }
 
