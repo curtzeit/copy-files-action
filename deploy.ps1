@@ -18,7 +18,7 @@ if ([string]::IsNullOrEmpty($BackupPath)) {
 $so = New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck
 $securePassword = ConvertTo-SecureString $Password -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential($Username, $securePassword)
-$session = New-PSSession -ComputerName $Server -SessionOption $so -UseSSL -Credential $credential
+$session = New-PSSession -ComputerName $Server -SessionOption $so -Credential $credential
 
 $zipFile = "$ProjectName.zip"
 $remoteZip = Join-Path $StagingPath $zipFile
