@@ -21,6 +21,7 @@ inputs:
     description: 'Staging path on the remote server'
   backup_path:
     required: false
+    default: ''
     description: 'Path to backup previous version to before updating'
 runs:
   using: 'composite'
