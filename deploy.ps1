@@ -1,5 +1,3 @@
-$ErrorActionPreference = "Stop"
-
 param (
     [string]$Server,
     [string]$Username,
