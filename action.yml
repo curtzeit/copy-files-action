@@ -45,3 +45,8 @@ runs:
 
         # Execute using the @ symbol instead of $ to splat the arguments
         PowerShell -ExecutionPolicy Bypass -File "${{ github.action_path }}/deploy.ps1" @params
+
+        if ($LASTEXITCODE -ne 0) {
+          Write-Error "Deploy.ps1 failed with exit code $LASTEXITCODE"
+          exit $LASTEXITCODE
+        }
