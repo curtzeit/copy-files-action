@@ -27,7 +27,7 @@ $backupZip = Join-Path $BackupPath "$ProjectName.Backup.zip"
 # Remove existing prod deployment zip in staging folder
 Invoke-Command -Session $session -ScriptBlock {
     param($remoteZip)
-    Remove-Item -Path $remoteZip -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path $remoteZip -Force -ErrorAction Stop
 } -ArgumentList $remoteZip
 
 # Copy the new file to the remote session
