@@ -1,4 +1,4 @@
-# 🚀 Deploy to Windows Server
+# Deploy to Windows Server
 
 A GitHub Action that securely copies deployment artifacts to a remote Windows server and performs a deployment using PowerShell Remoting.
 
