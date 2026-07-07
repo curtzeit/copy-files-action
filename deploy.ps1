@@ -21,8 +21,8 @@ $credential = New-Object System.Management.Automation.PSCredential($Username, $s
 $session = New-PSSession -ComputerName $Server -SessionOption $so -Credential $credential
 
 $zipFile = "$ProjectName.zip"
-$remoteZip = Join-Path $StagingPath $zipFile
-$backupZip = Join-Path $BackupPath "$ProjectName.Backup.zip"
+$remoteZip = [System.IO.Path]::Combine($StagingPath, $zipFile)
+$backupZip = [System.IO.Path]::Combine($BackupPath, "$ProjectName.Backup.zip")
 
 # Remove existing prod deployment zip in staging folder
 Invoke-Command -Session $session -ScriptBlock {
